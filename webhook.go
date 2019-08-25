@@ -186,11 +186,10 @@ func filterSidecar(metadata *metav1.ObjectMeta,  st *SidecarTemplate)([]corev1.C
 		if labels == nil {
 			labels = map[string]string{}
 		}
-		if label,ok:=labels["injector"];ok{
-			if label!=st.Items[i].Selector.Injector{
-				continue
-			}
+		if label,ok:=labels["injector"];!ok || label!=st.Items[i].Selector.Injector{
+			continue
 		}
+
 		res=append(res,st.Items[i].Spec.Containers...)
 	}
 	return res,nil

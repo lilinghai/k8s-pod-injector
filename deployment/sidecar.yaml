@@ -1,0 +1,13 @@
+apiVersion: pods.injector.com/v1
+kind: Sidecar
+metadata:
+  name: simplehttp
+selector:
+  injector: simplehttp
+spec:
+  containers:
+  - image: luksa/kubia
+    name: kubia
+    ports:
+    - containerPort: 8080
+      protocol: TCP

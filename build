@@ -1,0 +1,6 @@
+dep ensure
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o kube-mutating-webhook-sidecar .
+docker build --no-cache -t lilinghai/sidecar-injector:v1 .
+rm -rf kube-mutating-webhook-sidecar
+
+docker push lilinghai/sidecar-injector:v1

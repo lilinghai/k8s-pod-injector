@@ -59,6 +59,12 @@ sidecar-injector-webhook-deployment-857664f948-gj568   2/2     Running   0      
 [root@mstnode ~]# kubectl get deployment
 NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
 sidecar-injector-webhook-deployment   1/1     1            1           41m
+
+sidecar is the instance of CRD
+[root@mstnode ~]# kubectl get sidecar
+NAME               AGE
+simplehttp         15h
+
 ```
 
 2. Label the default namespace with `sidecar-injector=enabled`
@@ -82,8 +88,10 @@ spec:
   replicas: 1
   template:
     metadata:
+#annotations indicate whether pod can be mutated
       annotations:
         sidecar-injector-webhook.morven.me/inject: "yes"
+#the injector label indicates which sidecar is injected
       labels:
         app: sleep
         injector: simplehttp
